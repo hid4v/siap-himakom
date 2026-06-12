@@ -120,8 +120,11 @@
         .modal-footer { padding: 12px 24px !important; }
 
         /* Form controls */
-        .form-control, .form-select {
+        .form-control {
             padding: 8px 12px;
+        }
+        .form-select {
+            padding: 8px 36px 8px 12px;
         }
 
         /* Badge inline padding */
