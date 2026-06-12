@@ -2,6 +2,61 @@
 
 <?= $this->section('title') ?>Dashboard Member<?= $this->endSection() ?>
 
+<?= $this->section('styles') ?>
+<style>
+    .small-box {
+        position: relative;
+        display: block;
+        border-radius: 8px;
+        overflow: hidden;
+        color: #fff;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+    }
+    .small-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+    .small-box .inner {
+        padding: 24px;
+        position: relative;
+        z-index: 2;
+    }
+    .small-box .inner h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 4px 0;
+        white-space: nowrap;
+    }
+    .small-box .inner p {
+        font-size: 0.85rem;
+        margin-bottom: 0;
+        opacity: 0.9;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+    .small-box .icon {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        z-index: 1;
+        font-size: 4rem;
+        color: rgba(255, 255, 255, 0.15);
+        transition: transform 0.3s ease;
+        line-height: 1;
+    }
+    .small-box:hover .icon {
+        transform: scale(1.1);
+    }
+    .bg-box-navy { background-color: #0d3c78; }
+    .bg-box-amber { background-color: #c0841c; }
+    .bg-box-blue { background-color: #2563eb; }
+    .bg-box-teal { background-color: #1a6f5c; }
+</style>
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 <!-- Content Header -->
 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -18,68 +73,52 @@
 <div class="row g-3 mb-4">
     <!-- Total Loans -->
     <div class="col-6 col-md-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #0c2540 !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Total Pengajuan</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['total_loans'] ?></h3>
-                    </div>
-                    <div class="bg-dark bg-opacity-10 text-dark rounded-3 p-3">
-                        <i class="bi bi-journal-text fs-4"></i>
-                    </div>
-                </div>
+        <div class="small-box bg-box-navy">
+            <div class="inner">
+                <h3><?= $metrics['total_loans'] ?></h3>
+                <p>Total Pengajuan</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-journal-text"></i>
             </div>
         </div>
     </div>
 
     <!-- Pending Loans -->
     <div class="col-6 col-md-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #ffc107 !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Pending</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['pending_loans'] ?></h3>
-                    </div>
-                    <div class="bg-warning bg-opacity-10 text-warning-emphasis rounded-3 p-3">
-                        <i class="bi bi-hourglass-split fs-4"></i>
-                    </div>
-                </div>
+        <div class="small-box bg-box-amber">
+            <div class="inner">
+                <h3><?= $metrics['pending_loans'] ?></h3>
+                <p>Pending</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-hourglass-split"></i>
             </div>
         </div>
     </div>
 
     <!-- Active Loans (Approved/Borrowed) -->
     <div class="col-6 col-md-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #0d6efd !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Sedang Pinjam</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['active_loans'] ?></h3>
-                    </div>
-                    <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
-                        <i class="bi bi-box-arrow-up-right fs-4"></i>
-                    </div>
-                </div>
+        <div class="small-box bg-box-blue">
+            <div class="inner">
+                <h3><?= $metrics['active_loans'] ?></h3>
+                <p>Sedang Pinjam</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-box-arrow-up-right"></i>
             </div>
         </div>
     </div>
 
     <!-- Returned Loans -->
     <div class="col-6 col-md-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #198754 !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Sudah Kembali</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['returned_loans'] ?></h3>
-                    </div>
-                    <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
-                        <i class="bi bi-check2-square fs-4"></i>
-                    </div>
-                </div>
+        <div class="small-box bg-box-teal">
+            <div class="inner">
+                <h3><?= $metrics['returned_loans'] ?></h3>
+                <p>Sudah Kembali</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-check2-square"></i>
             </div>
         </div>
     </div>
@@ -290,10 +329,19 @@
                         // Fill items
                         let itemsHTML = '';
                         items.forEach(function(item) {
+                            const cond = item.asset_condition.toLowerCase().trim();
+                            let badgeClass = 'badge bg-secondary';
+                            if (cond === 'sangat baik') {
+                                badgeClass = 'badge bg-success';
+                            } else if (cond === 'baik') {
+                                badgeClass = 'badge bg-warning text-dark';
+                            } else if (cond.indexOf('buruk') !== -1 || cond.indexOf('rusak') !== -1) {
+                                badgeClass = 'badge bg-danger';
+                            }
                             itemsHTML += `
                                 <tr>
                                     <td>${item.asset_name}</td>
-                                    <td><span class="badge bg-secondary">${item.asset_condition}</span></td>
+                                    <td><span class="${badgeClass}">${item.asset_condition}</span></td>
                                     <td class="text-center fw-bold">${item.quantity} unit</td>
                                 </tr>
                             `;

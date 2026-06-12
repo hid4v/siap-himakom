@@ -49,7 +49,7 @@ This plan tracks the development progress of the SIAP-HIMAKOM system.
 ### Phase 5: Public Landing Page
 - [x] Integrate FlexStart template layout on the homepage
 - [x] Render Ilmu Komputer ULM program details (Visi, Misi, website links)
-- [x] Display live statistics counters and available assets catalog from database
+- [x] Display available assets catalog from database (statistics section removed)
 - [x] Set up FAQ list and Contact info section
 
 ### Phase 6: Auth & Dashboard Controllers
@@ -76,3 +76,21 @@ This plan tracks the development progress of the SIAP-HIMAKOM system.
 - [x] Verify validations (prevent borrowing more than available stock, date validators)
 - [x] Validate responsive views on mobile and desktop layout devices
 - [x] Document final changes in `walkthrough.md`
+
+### Phase 10: UI/UX Adjustments & Refinements
+- [x] Update landing page `landing.php` (remove stats, update color scheme variables)
+- [x] Update auth views `login.php` and `register.php` (white background, flat cards)
+- [x] Update layouts `admin_layout.php` and `member_dashboard.php` colors
+- [x] Redesign admin dashboard `dashboard.php` widgets to match classic solid colored small boxes
+- [x] Change primary font family to Montserrat across all pages (matching `https://ilkom.ulm.ac.id/`)
+- [x] Redesign Visi & Misi box on landing page to a regular clean box
+- [x] Clean admin sidebar by removing excessive dividing lines and underlines
+- [x] Format "Tahun" chart badge with a smooth circular/pill layout
+- [x] Update `DESIGN.md` and `Plan.md` documentation
+- [x] Verify all adjustments manually
+
+### Phase 11: Alert & Confirmation UI Overhaul
+- [x] Replace native `confirm()` dialogs on admin loans page with styled Bootstrap Modal (approve, reject, borrow, return)
+- [x] Replace native `alert()` on admin loans page with Bootstrap Toast notifications (success/error feedback)
+- [x] Replace native `alert()` on member catalog page with Bootstrap Toast for cart validation errors
+- [x] Update `DESIGN.md` documentation with new UI patterns

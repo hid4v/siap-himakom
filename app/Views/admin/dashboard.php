@@ -2,6 +2,100 @@
 
 <?= $this->section('title') ?>Dashboard Admin<?= $this->endSection() ?>
 
+<?= $this->section('styles') ?>
+<style>
+    .small-box {
+        position: relative;
+        display: block;
+        border-radius: 8px;
+        overflow: hidden;
+        color: #fff;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        margin-bottom: 20px;
+    }
+    .small-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+    .small-box .inner {
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+    }
+    .small-box .inner h3 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+        white-space: nowrap;
+        padding: 0;
+    }
+    .small-box .inner p {
+        font-size: 0.95rem;
+        margin-bottom: 0;
+        opacity: 0.9;
+    }
+    .small-box .icon {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 1;
+        font-size: 4.5rem;
+        color: rgba(255, 255, 255, 0.15);
+        transition: transform 0.3s ease;
+        line-height: 1;
+    }
+    .small-box:hover .icon {
+        transform: scale(1.1);
+    }
+    .small-box-footer {
+        position: relative;
+        text-align: center;
+        padding: 8px 0;
+        color: rgba(255, 255, 255, 0.8) !important;
+        display: block;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: background 0.2s ease, color 0.2s ease;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    .small-box-footer:hover {
+        background: rgba(0, 0, 0, 0.18);
+        color: #fff !important;
+    }
+
+    /* Specific theme box backgrounds matching mood of the web */
+    .bg-box-blue {
+        background-color: #0d3c78; /* Deep Navy */
+    }
+    .bg-box-green {
+        background-color: #1a6f5c; /* Harmonious Teal Green */
+    }
+    .bg-box-yellow {
+        background-color: #c0841c; /* Muted Gold/Amber */
+        color: #ffffff !important;
+    }
+    .bg-box-yellow .icon {
+        color: rgba(255, 255, 255, 0.15);
+    }
+    .bg-box-yellow .small-box-footer {
+        background: rgba(0, 0, 0, 0.1);
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+    .bg-box-yellow .small-box-footer:hover {
+        background: rgba(0, 0, 0, 0.18);
+        color: #ffffff !important;
+    }
+    .bg-box-red {
+        background-color: #9b303d; /* Muted Crimson */
+    }
+</style>
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 <!-- Content Header -->
 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -14,122 +108,108 @@
     </div>
 </div>
 
-<!-- Stats Cards Row -->
-<div class="row g-3 mb-4">
-    <!-- Card Total Pengguna -->
-    <div class="col-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #0d6efd !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Total Pengguna</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['total_users'] ?></h3>
-                    </div>
-                    <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
-                        <i class="bi bi-people fs-4"></i>
-                    </div>
-                </div>
+<!-- Stats Cards Row (Solid small boxes) -->
+<div class="row g-3 mb-2">
+    <!-- Blue Card: Total Transaksi -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="small-box bg-box-blue">
+            <div class="inner">
+                <h3><?= $metrics['total_loans'] ?></h3>
+                <p>Total Peminjaman</p>
             </div>
+            <div class="icon">
+                <i class="bi bi-cart"></i>
+            </div>
+            <a href="<?= base_url('admin/loans') ?>" class="small-box-footer">
+                Selengkapnya <i class="bi bi-link-45deg ms-1"></i>
+            </a>
         </div>
     </div>
     
-    <!-- Card Total Kategori -->
-    <div class="col-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #198754 !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Kategori Aset</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['total_categories'] ?></h3>
-                    </div>
-                    <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
-                        <i class="bi bi-tags fs-4"></i>
-                    </div>
-                </div>
+    <!-- Green Card: Katalog Aset Ready -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="small-box bg-box-green">
+            <div class="inner">
+                <h3><?= $metrics['available_assets'] ?></h3>
+                <p>Aset Tersedia</p>
             </div>
+            <div class="icon">
+                <i class="bi bi-bar-chart"></i>
+            </div>
+            <a href="<?= base_url('admin/assets') ?>" class="small-box-footer">
+                Selengkapnya <i class="bi bi-link-45deg ms-1"></i>
+            </a>
         </div>
     </div>
 
-    <!-- Card Total Aset -->
-    <div class="col-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #ffc107 !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Total Jenis Aset</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['total_assets'] ?></h3>
-                    </div>
-                    <div class="bg-warning bg-opacity-10 text-warning-emphasis rounded-3 p-3">
-                        <i class="bi bi-box-seam fs-4"></i>
-                    </div>
-                </div>
+    <!-- Yellow Card: Registrasi Member -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="small-box bg-box-yellow">
+            <div class="inner">
+                <h3><?= $metrics['total_users'] ?></h3>
+                <p>Registrasi Member</p>
             </div>
+            <div class="icon">
+                <i class="bi bi-person-plus"></i>
+            </div>
+            <a href="<?= base_url('admin/users') ?>" class="small-box-footer">
+                Selengkapnya <i class="bi bi-link-45deg ms-1"></i>
+            </a>
         </div>
     </div>
 
-    <!-- Card Aset Tersedia -->
-    <div class="col-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #20c997 !important;">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p class="text-uppercase text-muted small fw-bold mb-1">Aset Tersedia</p>
-                        <h3 class="mb-0 fw-bold text-dark"><?= $metrics['available_assets'] ?> <span class="small text-muted fw-normal">Ready</span></h3>
-                    </div>
-                    <div class="bg-info bg-opacity-10 text-info rounded-3 p-3">
-                        <i class="bi bi-check2-circle fs-4"></i>
-                    </div>
-                </div>
+    <!-- Red Card: Peminjaman Aktif -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="small-box bg-box-red">
+            <div class="inner">
+                <h3><?= $metrics['active_loans'] ?></h3>
+                <p>Peminjaman Aktif</p>
             </div>
+            <div class="icon">
+                <i class="bi bi-pie-chart"></i>
+            </div>
+            <a href="<?= base_url('admin/loans') ?>" class="small-box-footer">
+                Selengkapnya <i class="bi bi-link-45deg ms-1"></i>
+            </a>
         </div>
     </div>
 </div>
 
+<!-- Secondary Stats Row (Clean flat layout) -->
 <div class="row g-3 mb-4">
-    <!-- Card Total Peminjaman -->
-    <div class="col-6 col-lg-4">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="background-color: var(--primary-dark) !important; color: #fff;">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
+    <!-- Card Total Kategori -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+            <div class="card-body p-3 d-flex align-items-center justify-content-between">
                 <div>
-                    <h5 class="text-white-50 small fw-bold text-uppercase mb-2">Total Transaksi</h5>
-                    <h2 class="mb-0 fw-bold text-gold"><?= $metrics['total_loans'] ?></h2>
-                    <span class="small text-white-50">Pengajuan Peminjaman</span>
+                    <span class="text-muted small fw-semibold d-block mb-1">Manajemen Kategori</span>
+                    <h5 class="fw-bold mb-0 text-dark"><?= $metrics['total_categories'] ?> Kategori Aset</h5>
                 </div>
-                <div class="bg-white bg-opacity-10 text-gold rounded-3 p-3">
-                    <i class="bi bi-arrow-left-right fs-3"></i>
-                </div>
+                <a href="<?= base_url('admin/categories') ?>" class="btn btn-sm btn-light border"><i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
-
-    <!-- Card Peminjaman Aktif -->
-    <div class="col-6 col-lg-4">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #dc3545 !important;">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
+    <!-- Card Total Jenis Aset -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+            <div class="card-body p-3 d-flex align-items-center justify-content-between">
                 <div>
-                    <h5 class="text-muted small fw-bold text-uppercase mb-2">Peminjaman Aktif</h5>
-                    <h2 class="mb-0 fw-bold text-dark"><?= $metrics['active_loans'] ?></h2>
-                    <span class="small text-muted">Sedang Berjalan (Approved/Borrowed)</span>
+                    <span class="text-muted small fw-semibold d-block mb-1">Total Jenis Aset</span>
+                    <h5 class="fw-bold mb-0 text-dark"><?= $metrics['total_assets'] ?> Item Terdaftar</h5>
                 </div>
-                <div class="bg-danger bg-opacity-10 text-danger rounded-3 p-3">
-                    <i class="bi bi-arrow-up-right-circle fs-3"></i>
-                </div>
+                <a href="<?= base_url('admin/assets') ?>" class="btn btn-sm btn-light border"><i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
-
-    <!-- Card Fisik Stok -->
-    <div class="col-12 col-lg-4">
-        <div class="card border-0 shadow-sm h-100 rounded-4" style="border-left: 4px solid #6c757d !important;">
-            <div class="card-body p-4 d-flex align-items-center justify-content-between">
+    <!-- Card Stok Unit Fisik -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-3 bg-white h-100">
+            <div class="card-body p-3 d-flex align-items-center justify-content-between">
                 <div>
-                    <h5 class="text-muted small fw-bold text-uppercase mb-2">Stok Unit Fisik</h5>
-                    <h2 class="mb-0 fw-bold text-dark"><?= $metrics['available_stock'] ?> <span class="fs-5 text-muted fw-normal">/ <?= $metrics['total_stock'] ?> unit</span></h2>
-                    <span class="small text-muted">Unit Fisik yang Ready Peminjaman</span>
+                    <span class="text-muted small fw-semibold d-block mb-1">Stok Unit Fisik</span>
+                    <h5 class="fw-bold mb-0 text-dark"><?= $metrics['available_stock'] ?> / <?= $metrics['total_stock'] ?> Unit Ready</h5>
                 </div>
-                <div class="bg-secondary bg-opacity-10 text-secondary rounded-3 p-3">
-                    <i class="bi bi-hdd-stack fs-3"></i>
-                </div>
+                <a href="<?= base_url('admin/assets') ?>" class="btn btn-sm btn-light border"><i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
@@ -142,7 +222,7 @@
         <div class="card border-0 shadow-sm rounded-4 h-100">
             <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex align-items-center justify-content-between">
                 <h5 class="card-title fw-bold mb-0 text-dark">Grafik Tren Peminjaman per Bulan</h5>
-                <span class="badge bg-secondary">Tahun <?= date('Y') ?></span>
+                <span class="badge bg-secondary rounded-pill px-3 py-2 fw-semibold" style="font-size: 0.85rem; letter-spacing: 0.3px;">Tahun <?= date('Y') ?></span>
             </div>
             <div class="card-body px-4 pb-4">
                 <div style="position: relative; height: 320px; width: 100%;">
@@ -193,13 +273,13 @@
                 datasets: [{
                     label: 'Jumlah Transaksi Peminjaman',
                     data: monthlyData,
-                    borderColor: '#0c2540',
+                    borderColor: '#0d3c78',
                     borderWidth: 3,
                     backgroundColor: gradientBlue,
                     fill: true,
                     tension: 0.3,
-                    pointBackgroundColor: '#f1b24a',
-                    pointBorderColor: '#0c2540',
+                    pointBackgroundColor: '#567c9c',
+                    pointBorderColor: '#0d3c78',
                     pointBorderWidth: 2,
                     pointRadius: 5,
                     pointHoverRadius: 7
@@ -261,8 +341,8 @@
                     datasets: [{
                         data: categoryData,
                         backgroundColor: [
-                            '#0c2540', // Deep Blue
-                            '#f1b24a', // Gold
+                            '#0d3c78', // Deep Navy Blue
+                            '#567c9c', // Muted Steel Blue
                             '#0d6efd', // Blue
                             '#198754', // Green
                             '#dc3545', // Red

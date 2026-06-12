@@ -78,27 +78,31 @@ erDiagram
 ## 3. Skema Navigasi & Tampilan Visual
 
 ### A. Palet Warna & Identitas Visual
-*   **HIMAKOM Identity Color**: Sleek dark mode / deep blue (`#0c2540` / HSL 210, 68%, 15%) as primary, accented with warm gold/amber (`#f1b24a`) for alerts/actions, matching the HIMAKOM Logo logo.
-*   **Logo HIMAKOM**: Placed on the landing page navbar and the top-left sidebar/navbar of AdminLTE dashboard.
-*   **University Identity**: Showcase Program Studi Ilmu Komputer Universitas Lambung Mangkurat (ULM) with clean modern fonts (Roboto, Poppins).
+*   **Warna Utama (Primary)**: Deep Navy Blue (`#0d3c78`) untuk header, sidebar menu, dan tombol utama.
+*   **Warna Aksen / Secondary**: Muted Steel Blue (`#567c9c`) untuk penanda aktif, link, dan penekanan sekunder.
+*   **Warna Latar Belakang (Base Background)**: Gray-White (`#f0f2f5`) untuk body latar belakang halaman admin, login, register, dan konten.
+*   **Warna Teks Utama**: Slate Gray (`#595959`) untuk subteks, deskripsi, dan teks sekunder.
+*   **Tipografi (Font)**: Menggunakan font **Montserrat** di seluruh bagian situs (landing page, auth pages, dan dashboard) untuk menyelaraskan identitas visual dengan situs resmi Program Studi Ilmu Komputer ULM.
+*   **Ikon Sistem**: Menggunakan **Bootstrap Icons v1.11.1** via CDN untuk rendering ikon vector yang bersih dan responsif.
+*   **Logo HIMAKOM**: Ditempatkan pada navbar halaman beranda publik dan sidebar kiri atas dashboard AdminLTE.
+*   **University Identity**: Menampilkan identitas Program Studi Ilmu Komputer Universitas Lambung Mangkurat (ULM) dengan tautan langsung ke [ilkom.ulm.ac.id](https://ilkom.ulm.ac.id).
 
 ### B. Landing Page (FlexStart Layout)
 *   **Hero Section**: Intro to SIAP-HIMAKOM.
-*   **Tentang HIMAKOM**: Description of the organization.
-*   **Visi & Misi Prodi Ilmu Komputer ULM**:
-    *   *Visi*: Terwujudnya program studi bidang komputasi yang mampu bersaing secara nasional dalam otomasi data untuk mengoptimalkan potensi daerah serta mendukung e-government dengan teknologi kekinian.
-    *   *Misi*:
-        1. Menyelenggarakan pendidikan dan pengajaran sesuai dengan kualifikasi nasional dibidang komputer dalam otomasi data dalam rangka mencerdaskan masyarakat dan bersaing secara nasional.
-        2. Menghasilkan dan mengembangkan penelitian keilmuan bidang komputasi dengan teknologi kekinian sebagai penelitian yang dapat mengoptimalkan potensi daerah serta mendukung e-government.
-        3. Berpartisipasi dalam pengabdian masyarakat untuk meningkatkan potensi daerah dan menyelesaikan masalah daerah dengan teknologi berbasis komputer.
-    *   *Web Utama*: Direct links to [ilkom.ulm.ac.id](https://ilkom.ulm.ac.id).
-*   **Katalog Aset (Public)**: Interactive cards showing asset photo, name, category, condition, and available stock.
-*   **FAQ & Kontak**: standard info.
+*   **Tentang HIMAKOM & Prodi**: Ditampilkan dalam 2 buah kotak kartu putih minimalis sejajar yang memiliki tinggi sama (*equal height*).
+*   **Visi & Misi Prodi Ilmu Komputer ULM**: Ditampilkan terintegrasi di kartu sebelah kanan.
+*   **Tautan Web Resmi**: Dipisahkan di bagian bawah kedua kartu secara terpusat (*centered layout*).
+*   **Katalog Aset (Public)**: Kartu interaktif yang menampilkan foto aset, nama, kategori, kondisi (dengan badge dinamis: Hijau untuk Sangat Baik, Kuning untuk Baik, Merah untuk Buruk/Rusak), dan stok tersedia.
+*   **FAQ & Kontak**: Info tanya jawab seputar peminjaman dan kontak sekretariat HIMAKOM.
 
 ### C. Dashboard Layout (AdminLTE 4)
-*   **Admin Dashboard**: Statistical summaries and dynamic Chart.js dashboards.
+*   **Admin Dashboard**: Ringkasan statistik berbentuk 4 kartu solid AdminLTE yang disesuaikan dengan mood warna web (Biru Tua untuk Total Peminjaman, Hijau Toska untuk Aset Tersedia, Kuning Emas untuk Registrasi Member, Merah Muted untuk Peminjaman Aktif) dalam bahasa Indonesia dengan link detail di bagian bawah, serta grafik Chart.js dinamis.
+*   **Menu Navigasi Sidebar**: Menyembunyikan seluruh garis pembatas (border) agar bersih. Tombol keluar disesuaikan lebih rapat.
+*   **Menu Dropdown Profil**: Hanya menyediakan tombol "Keluar" berukuran penuh (full width).
 *   **Member Dashboard**: Summary of bookings, quick access to catalog.
-*   **DataTables Grid**: Applied on Users, Categories, Assets, and Loans tables with server-side processing for instant AJAX searching, sorting, and pagination.
+*   **DataTables Grid**: Applied on Users, Categories, Assets, and Loans tables with server-side processing for instant AJAX searching, sorting, and pagination. Warna kondisi aset disesuaikan (Sangat Baik: Hijau, Baik: Kuning, Buruk: Merah).
+*   **Confirmation Modals**: Semua dialog konfirmasi aksi (Approve, Reject, Borrow, Return di halaman Peminjaman) menggunakan Bootstrap Modal custom yang centered, dengan ikon bertema warna (Hijau untuk Setujui/Kembalikan, Merah untuk Tolak, Biru Tua untuk Tandai Diambil), judul bold, deskripsi kontekstual, serta dua tombol aksi (Batal & konfirmasi). Menggantikan dialog `confirm()` bawaan browser.
+*   **Toast Notifications**: Feedback aksi sukses/error menggunakan Bootstrap Toast berwarna (Hijau untuk sukses, Merah untuk error) di pojok kanan atas dengan auto-dismiss 4 detik. Menggantikan dialog `alert()` bawaan browser.
 
 ---
 

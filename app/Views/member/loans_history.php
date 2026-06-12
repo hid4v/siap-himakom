@@ -189,10 +189,19 @@
                         // Fill items
                         let itemsHTML = '';
                         items.forEach(function(item) {
+                            const cond = item.asset_condition.toLowerCase().trim();
+                            let badgeClass = 'badge bg-secondary';
+                            if (cond === 'sangat baik') {
+                                badgeClass = 'badge bg-success';
+                            } else if (cond === 'baik') {
+                                badgeClass = 'badge bg-warning text-dark';
+                            } else if (cond.indexOf('buruk') !== -1 || cond.indexOf('rusak') !== -1) {
+                                badgeClass = 'badge bg-danger';
+                            }
                             itemsHTML += `
                                 <tr>
                                     <td>${item.asset_name}</td>
-                                    <td><span class="badge bg-secondary">${item.asset_condition}</span></td>
+                                    <td><span class="${badgeClass}">${item.asset_condition}</span></td>
                                     <td class="text-center fw-bold">${item.quantity} unit</td>
                                 </tr>
                             `;

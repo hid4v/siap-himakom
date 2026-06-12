@@ -9,7 +9,7 @@
     <link href="<?= base_url('favicon.ico') ?>" rel="icon">
     
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css" />
@@ -25,14 +25,21 @@
     
     <style>
         :root {
-            --primary-dark: #0c2540;
-            --accent-gold: #f1b24a;
-            --light-bg: #f8f9fa;
+            --primary-dark: #0d3c78;
+            --accent-gold: #567c9c;
+            --light-bg: #f0f2f5;
         }
 
-        .brand-link {
+        body, h1, h2, h3, h4, h5, h6, p, span, a, label, input, button, select, textarea, .brand-text, .nav-link, .card-title, .table, .btn {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        .sidebar-brand, .brand-link {
             background-color: var(--primary-dark) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border: none !important;
+            border-bottom: none !important;
+            box-shadow: none !important;
+            text-decoration: none !important;
         }
 
         .app-sidebar {
@@ -41,7 +48,7 @@
 
         .sidebar-menu .nav-link.active {
             background-color: var(--accent-gold) !important;
-            color: #0c2540 !important;
+            color: #ffffff !important;
             font-weight: 600;
         }
 
@@ -50,23 +57,80 @@
         }
 
         .user-panel {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none !important;
         }
 
         .btn-gold {
             background-color: var(--accent-gold);
-            color: #0c2540;
+            color: #ffffff;
             font-weight: 600;
             border: none;
         }
 
         .btn-gold:hover {
-            background-color: #dca035;
-            color: #0c2540;
+            background-color: #446582;
+            color: #ffffff;
         }
 
         .text-gold {
             color: var(--accent-gold) !important;
+        }
+
+        /* ============================================
+           Sidebar Toggle – Overlay mode on all sizes
+           ============================================ */
+        /* When collapsed, sidebar slides off-screen completely (not mini-icon mode) */
+        .app-sidebar {
+            transition: margin-left 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Ensure sidebar text is always visible when expanded */
+        .sidebar-menu .nav-link p {
+            display: inline !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* ============================================
+           8px Grid Spacing System
+           ============================================ */
+        .app-main {
+            padding: 32px 0 !important; /* 4 × 8px */
+        }
+        .app-main > .container-fluid {
+            padding-left: 24px !important;  /* 3 × 8px */
+            padding-right: 24px !important;
+        }
+        .app-footer {
+            padding: 16px 0 !important; /* 2 × 8px */
+        }
+
+        /* Content cards consistent spacing */
+        .card-body { padding: 24px !important; }
+        .card-header { padding: 16px 24px !important; }
+        .card-footer { padding: 16px 24px !important; }
+
+        /* Table cells */
+        .table > :not(caption) > * > * {
+            padding: 12px 16px;
+        }
+
+        /* Modal body spacing */
+        .modal-body { padding: 24px !important; }
+        .modal-footer { padding: 12px 24px !important; }
+
+        /* Form controls */
+        .form-control, .form-select {
+            padding: 8px 12px;
+        }
+
+        /* Badge inline padding */
+        .badge { padding: 4px 8px; }
+
+        /* Flashdata alert spacing */
+        .alert { 
+            padding: 12px 16px; 
+            margin-bottom: 24px; 
         }
     </style>
     <?= $this->renderSection('styles') ?>
@@ -106,11 +170,8 @@
                                 </p>
                             </li>
                             <!-- Menu Footer -->
-                            <li class="user-footer d-flex justify-content-between p-3 bg-light">
-                                <a href="<?= session()->get('role') === 'admin' ? base_url('admin') : base_url('member/profile') ?>" class="btn btn-sm btn-outline-secondary">
-                                    <i class="bi bi-person"></i> Profil
-                                </a>
-                                <a href="<?= base_url('logout') ?>" class="btn btn-sm btn-outline-danger">
+                            <li class="user-footer p-3 bg-light text-center">
+                                <a href="<?= base_url('logout') ?>" class="btn btn-outline-danger w-100">
                                     <i class="bi bi-box-arrow-right"></i> Keluar
                                 </a>
                             </li>
@@ -207,7 +268,7 @@
                             </li>
                         <?php endif; ?>
 
-                        <li class="nav-item mt-4 border-top border-secondary pt-2">
+                        <li class="nav-item mt-1">
                             <a href="<?= base_url('logout') ?>" class="nav-link text-danger">
                                 <i class="nav-icon bi bi-box-arrow-right"></i>
                                 <p>Keluar</p>
@@ -219,8 +280,8 @@
         </aside>
 
         <!-- Content Wrapper -->
-        <main class="app-main py-4">
-            <div class="container-fluid px-4">
+        <main class="app-main">
+            <div class="container-fluid">
                 
                 <!-- Display Alert Flashdata -->
                 <?php if (session()->getFlashdata('success')): ?>

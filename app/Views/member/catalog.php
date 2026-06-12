@@ -39,6 +39,19 @@
     <p class="text-muted mb-0 small">Pilih aset dari katalog, tentukan kuantitas, dan ajukan peminjaman melalui keranjang.</p>
 </div>
 
+<!-- Toast Notification for Catalog -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+    <div id="catalogToast" class="toast align-items-center bg-danger text-white border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3500">
+        <div class="d-flex">
+            <div class="toast-body d-flex align-items-center gap-2 fw-medium">
+                <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                <span id="catalog-toast-msg"></span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <div class="row g-4">
     <!-- Left Column: Catalog list -->
     <div class="col-lg-8">
@@ -57,7 +70,18 @@
                             <!-- Thumbnail -->
                             <div class="asset-thumbnail-container">
                                 <span class="badge bg-dark position-absolute top-0 start-0 m-3"><?= esc($asset['category_name']) ?></span>
-                                <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3"><?= esc($asset['condition']) ?></span>
+                                <?php
+                                  $cond = strtolower(trim($asset['condition']));
+                                  $badgeBg = 'bg-secondary text-white';
+                                  if ($cond === 'sangat baik') {
+                                      $badgeBg = 'bg-success text-white';
+                                  } elseif ($cond === 'baik') {
+                                      $badgeBg = 'bg-warning text-dark';
+                                  } elseif (strpos($cond, 'buruk') !== false || strpos($cond, 'rusak') !== false) {
+                                      $badgeBg = 'bg-danger text-white';
+                                  }
+                                ?>
+                                <span class="badge <?= $badgeBg ?> position-absolute top-0 end-0 m-3"><?= esc($asset['condition']) ?></span>
                                 
                                 <?php if ($asset['image']): ?>
                                     <img src="<?= base_url('uploads/assets/' . $asset['image']) ?>" alt="<?= esc($asset['name']) ?>">
@@ -159,6 +183,13 @@
 <?= $this->section('scripts') ?>
 <script>
     $(document).ready(function() {
+        // Show Catalog Toast (replaces native alert)
+        function showCatalogAlert(msg) {
+            $('#catalog-toast-msg').text(msg);
+            const bsToast = new bootstrap.Toast(document.getElementById('catalogToast'));
+            bsToast.show();
+        }
+
         // Local Cart State
         let cart = {};
 
@@ -170,11 +201,11 @@
             const qty = parseInt($('#qty-' + assetId).val());
 
             if (isNaN(qty) || qty <= 0) {
-                alert('Jumlah unit tidak valid.');
+                showCatalogAlert('Jumlah unit tidak valid. Harap masukkan angka yang benar.');
                 return;
             }
             if (qty > maxVal) {
-                alert('Kuantitas tidak boleh melebihi stok ready (' + maxVal + ' unit).');
+                showCatalogAlert('Kuantitas tidak boleh melebihi stok ready (' + maxVal + ' unit).');
                 return;
             }
 

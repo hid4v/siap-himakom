@@ -14,7 +14,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="<?= base_url('assets/FlexStart/assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
@@ -28,9 +28,13 @@
 
   <style>
     :root {
-      --primary-color: #0c2540;
-      --accent-color: #f1b24a;
-      --secondary-color: #0d6efd;
+      --primary-color: #0d3c78;
+      --accent-color: #567c9c;
+      --secondary-color: #595959;
+    }
+    
+    body, h1, h2, h3, h4, h5, h6, p, span, a, li, button, .sitename, .logo h1, .btn-get-started, .btn-register-hero {
+      font-family: 'Montserrat', sans-serif !important;
     }
     
     .header .logo img {
@@ -180,7 +184,7 @@
       top: 15px;
       right: 15px;
       background: var(--accent-color);
-      color: #0c2540;
+      color: #ffffff;
       font-size: 0.75rem;
       font-weight: 700;
       padding: 5px 12px;
@@ -319,7 +323,6 @@
         <ul>
           <li><a href="#hero" class="active">Beranda</a></li>
           <li><a href="#about">Tentang</a></li>
-          <li><a href="#stats">Statistik</a></li>
           <li><a href="#catalog">Katalog Aset</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Kontak</a></li>
@@ -369,91 +372,46 @@
         </div>
 
         <div class="row gy-4 align-items-stretch">
-          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-            <div class="content">
-              <h3>HIMAKOM FMIPA ULM</h3>
-              <p class="lead">Himpunan Mahasiswa Ilmu Komputer (HIMAKOM) FMIPA ULM merupakan wadah organisasi bagi mahasiswa Program Studi Ilmu Komputer Universitas Lambung Mangkurat.</p>
-              <p>HIMAKOM bertugas mengayomi mahasiswa, menyalurkan minat bakat, dan memfasilitasi kebutuhan sarana prasarana mahasiswa Ilmu Komputer dalam menunjang kegiatan akademis dan non-akademis.</p>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card h-100 p-4 border border-light-subtle shadow-sm" style="background-color: #ffffff; border-radius: 12px;">
+              <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-people-fill me-2"></i>HIMAKOM FMIPA ULM</h4>
+              <p class="lead" style="font-size: 1.05rem; line-height: 1.7; color: var(--secondary-color);">Himpunan Mahasiswa Ilmu Komputer (HIMAKOM) FMIPA ULM merupakan wadah organisasi bagi mahasiswa Program Studi Ilmu Komputer Universitas Lambung Mangkurat.</p>
+              <p style="font-size: 0.95rem; line-height: 1.7; color: var(--secondary-color);">HIMAKOM bertugas mengayomi mahasiswa, menyalurkan minat bakat, dan memfasilitasi kebutuhan sarana prasarana mahasiswa Ilmu Komputer dalam menunjang kegiatan akademis dan non-akademis.</p>
             </div>
           </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="card h-100 border-0 shadow-sm p-4" style="background-color: #fff4e3; border-left: 5px solid var(--accent-color) !important;">
+            <div class="card h-100 p-4 border border-light-subtle shadow-sm" style="background-color: #ffffff; border-radius: 12px;">
               <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-mortarboard-fill me-2"></i>Program Studi Ilmu Komputer ULM</h4>
               
               <div class="mb-3">
-                <span class="badge bg-dark mb-2">VISI</span>
+                <span class="badge bg-secondary mb-2">VISI</span>
                 <p class="small text-muted mb-0">"Terwujudnya program studi bidang komputasi yang mampu bersaing secara nasional dalam otomasi data untuk mengoptimalkan potensi daerah serta mendukung e-government dengan teknologi kekinian."</p>
               </div>
 
               <div>
-                <span class="badge bg-dark mb-2">MISI</span>
-                <ol class="small text-muted ps-3 mb-0">
+                <span class="badge bg-secondary mb-2">MISI</span>
+                <ol class="small text-muted ps-3 mb-0" style="line-height: 1.6;">
                   <li>Menyelenggarakan pendidikan dan pengajaran sesuai dengan kualifikasi nasional dibidang komputer dalam otomasi data dalam rangka mencerdaskan masyarakat dan bersaing secara nasional.</li>
                   <li>Menghasilkan dan mengembangkan penelitian keilmuan bidang komputasi dengan teknologi kekinian sebagai penelitian yang dapat mengoptimalkan potensi daerah serta mendukung e-government.</li>
                   <li>Berpartisipasi dalam pengabdian masyarakat untuk meningkatkan potensi daerah dan menyelesaikan masalah daerah dengan teknologi berbasis komputer.</li>
                 </ol>
               </div>
-              
-              <div class="mt-4 pt-3 border-top border-warning-subtle text-end">
-                <span class="small text-muted">Web Resmi: </span>
-                <a href="https://ilkom.ulm.ac.id" target="_blank" class="fw-bold text-dark text-decoration-none"><i class="bi bi-globe2 me-1"></i>ilkom.ulm.ac.id</a>
-              </div>
             </div>
+          </div>
+        </div>
+
+        <div class="row mt-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="col-12 text-center">
+            <span class="text-muted small">Web Resmi Program Studi: </span>
+            <a href="https://ilkom.ulm.ac.id" target="_blank" class="fw-bold text-dark text-decoration-none small ms-1"><i class="bi bi-globe2 me-1"></i>ilkom.ulm.ac.id</a>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Statistik Section -->
-    <section id="stats" class="stats section">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-4 justify-content-center text-center">
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-              <i class="bi bi-box-seam flex-shrink-0 fs-1 me-3"></i>
-              <div class="text-start">
-                <span class="fs-2 fw-bold d-block"><?= $stats['total_assets'] ?></span>
-                <p class="mb-0 small text-white-50">Total Jenis Aset</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-              <i class="bi bi-tags flex-shrink-0 fs-1 me-3"></i>
-              <div class="text-start">
-                <span class="fs-2 fw-bold d-block"><?= $stats['total_categories'] ?></span>
-                <p class="mb-0 small text-white-50">Kategori Aset</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-              <i class="bi bi-arrow-left-right flex-shrink-0 fs-1 me-3"></i>
-              <div class="text-start">
-                <span class="fs-2 fw-bold d-block"><?= $stats['total_loans'] ?></span>
-                <p class="mb-0 small text-white-50">Total Transaksi Pinjam</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item d-flex align-items-center justify-content-center w-100 h-100">
-              <i class="bi bi-check-circle flex-shrink-0 fs-1 me-3"></i>
-              <div class="text-start">
-                <span class="fs-2 fw-bold d-block"><?= $stats['available_assets'] ?></span>
-                <p class="mb-0 small text-white-50">Jenis Aset Ready</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
     <!-- Katalog Aset Section -->
     <section id="catalog" class="services section">
@@ -476,7 +434,18 @@
                 <div class="asset-card">
                   <div class="asset-img-container">
                     <span class="category-badge"><?= esc($asset['category_name']) ?></span>
-                    <span class="condition-badge"><?= esc($asset['condition']) ?></span>
+                    <?php
+                      $cond = strtolower(trim($asset['condition']));
+                      $badgeBg = 'bg-secondary text-white';
+                      if ($cond === 'sangat baik') {
+                          $badgeBg = 'bg-success text-white';
+                      } elseif ($cond === 'baik') {
+                          $badgeBg = 'bg-warning text-dark';
+                      } elseif (strpos($cond, 'buruk') !== false || strpos($cond, 'rusak') !== false) {
+                          $badgeBg = 'bg-danger text-white';
+                      }
+                    ?>
+                    <span class="condition-badge <?= $badgeBg ?>"><?= esc($asset['condition']) ?></span>
                     
                     <?php if ($asset['image']): ?>
                       <img src="<?= base_url('uploads/assets/' . $asset['image']) ?>" alt="<?= esc($asset['name']) ?>">
@@ -570,7 +539,7 @@
 
         <div class="row gy-4 justify-content-center">
           <div class="col-lg-4 col-md-6">
-            <div class="info-item d-flex flex-column align-items-center justify-content-center text-center p-4 shadow-sm rounded">
+            <div class="info-item d-flex flex-column align-items-center justify-content-center text-center p-4 shadow-sm h-100" style="border-radius: 12px;">
               <i class="bi bi-geo-alt fs-2 text-warning mb-3"></i>
               <h4>Sekretariat</h4>
               <p class="small text-muted">Gedung Ormawa FMIPA ULM, Jl. A. Yani Km. 36 Banjarbaru, Kalimantan Selatan</p>
@@ -578,7 +547,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6">
-            <div class="info-item d-flex flex-column align-items-center justify-content-center text-center p-4 shadow-sm rounded">
+            <div class="info-item d-flex flex-column align-items-center justify-content-center text-center p-4 shadow-sm h-100" style="border-radius: 12px;">
               <i class="bi bi-envelope fs-2 text-warning mb-3"></i>
               <h4>Email Resmi</h4>
               <p class="small text-muted">himakom@fmipa.ulm.ac.id</p>
@@ -586,7 +555,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6">
-            <div class="info-item d-flex flex-column align-items-center justify-content-center text-center p-4 shadow-sm rounded">
+            <div class="info-item d-flex flex-column align-items-center justify-content-center text-center p-4 shadow-sm h-100" style="border-radius: 12px;">
               <i class="bi bi-instagram fs-2 text-warning mb-3"></i>
               <h4>Instagram</h4>
               <p class="small text-muted">@himakom_ulm</p>
@@ -637,7 +606,7 @@
                 </tr>
                 <tr>
                   <th>Kondisi</th>
-                  <td>: <span class="badge bg-warning text-dark" id="modal-condition"></span></td>
+                  <td>: <span id="modal-condition"></span></td>
                 </tr>
                 <tr>
                   <th>Stok Total</th>
@@ -715,7 +684,16 @@
               $('#modal-image').attr('src', data.image);
               $('#modal-asset-name').text(data.name);
               $('#modal-category').text(data.category_name);
-              $('#modal-condition').text(data.condition);
+              const cond = data.condition.toLowerCase().trim();
+              let badgeClass = 'badge bg-secondary text-white';
+              if (cond === 'sangat baik') {
+                  badgeClass = 'badge bg-success text-white';
+              } else if (cond === 'baik') {
+                  badgeClass = 'badge bg-warning text-dark';
+              } else if (cond.indexOf('buruk') !== -1 || cond.indexOf('rusak') !== -1) {
+                  badgeClass = 'badge bg-danger text-white';
+              }
+              $('#modal-condition').attr('class', badgeClass).text(data.condition);
               $('#modal-stock').text(data.stock);
               $('#modal-available').text(data.available_stock);
               $('#modal-status').text(data.status);

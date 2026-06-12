@@ -244,7 +244,22 @@
                         return '<span class="badge bg-danger">Habis</span>';
                     }
                 },
-                { data: 'condition', name: 'condition' },
+                { 
+                    data: 'condition', 
+                    name: 'condition',
+                    render: function(data, type, row) {
+                        const cond = data.toLowerCase().trim();
+                        let badgeBg = 'bg-secondary';
+                        if (cond === 'sangat baik') {
+                            badgeBg = 'bg-success';
+                        } else if (cond === 'baik') {
+                            badgeBg = 'bg-warning text-dark';
+                        } else if (cond.indexOf('buruk') !== -1 || cond.indexOf('rusak') !== -1) {
+                            badgeBg = 'bg-danger';
+                        }
+                        return '<span class="badge ' + badgeBg + '">' + data + '</span>';
+                    }
+                },
                 { 
                     data: 'status', 
                     name: 'status',

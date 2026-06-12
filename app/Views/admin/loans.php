@@ -106,6 +106,43 @@
         </div>
     </div>
 </div>
+
+<!-- Reusable Confirmation Modal -->
+<div class="modal fade" id="confirmActionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
+            <div class="modal-body text-center px-4 pt-4 pb-3">
+                <!-- Icon circle -->
+                <div id="confirm-icon-wrap" class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 64px; height: 64px;">
+                    <i id="confirm-icon" class="fs-2"></i>
+                </div>
+                <h5 id="confirm-title" class="fw-bold mb-2"></h5>
+                <p id="confirm-desc" class="text-muted small mb-0" style="line-height: 1.6;"></p>
+            </div>
+            <div class="modal-footer border-0 bg-light justify-content-center gap-2 px-4 pb-4 pt-2">
+                <button type="button" class="btn btn-light border rounded-3 px-4" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-1"></i>Batal
+                </button>
+                <button type="button" id="confirm-action-btn" class="btn rounded-3 px-4">
+                    <i id="confirm-btn-icon" class="me-1"></i><span id="confirm-btn-text"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+    <div id="actionToast" class="toast align-items-center border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+        <div class="d-flex">
+            <div class="toast-body d-flex align-items-center gap-2 fw-medium">
+                <i id="toast-icon" class="fs-5"></i>
+                <span id="toast-message"></span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
@@ -240,10 +277,19 @@
                         // Fill items
                         let itemsHTML = '';
                         items.forEach(function(item) {
+                            const cond = item.asset_condition.toLowerCase().trim();
+                            let badgeClass = 'badge bg-secondary';
+                            if (cond === 'sangat baik') {
+                                badgeClass = 'badge bg-success';
+                            } else if (cond === 'baik') {
+                                badgeClass = 'badge bg-warning text-dark';
+                            } else if (cond.indexOf('buruk') !== -1 || cond.indexOf('rusak') !== -1) {
+                                badgeClass = 'badge bg-danger';
+                            }
                             itemsHTML += `
                                 <tr>
                                     <td>${item.asset_name}</td>
-                                    <td><span class="badge bg-secondary">${item.asset_condition}</span></td>
+                                    <td><span class="${badgeClass}">${item.asset_condition}</span></td>
                                     <td class="text-center fw-bold">${item.quantity} unit</td>
                                 </tr>
                             `;
@@ -262,10 +308,98 @@
             });
         });
 
-        // 2. Handle Action Requests (Approve, Reject, Borrow, Return)
-        function processAction(url, successMsg) {
+        // 2. Show Toast Notification (replaces native alert)
+        function showToast(message, isSuccess) {
+            const toast = document.getElementById('actionToast');
+            const toastIcon = document.getElementById('toast-icon');
+            const toastMsg = document.getElementById('toast-message');
+
+            toast.className = 'toast align-items-center border-0 shadow-lg text-white ' + (isSuccess ? 'bg-success' : 'bg-danger');
+            toastIcon.className = 'fs-5 bi ' + (isSuccess ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill');
+            toastMsg.textContent = message;
+
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+        }
+
+        // 3. Show Confirmation Modal (replaces native confirm)
+        const actionConfigs = {
+            approve: {
+                iconClass: 'bi bi-check-circle-fill',
+                iconBg: 'rgba(25, 135, 84, 0.12)',
+                iconColor: '#198754',
+                title: 'Setujui Peminjaman?',
+                desc: 'Stok aset yang terkait akan dikurangi sesuai jumlah yang diajukan. Pastikan data sudah benar sebelum melanjutkan.',
+                btnClass: 'btn-success',
+                btnIcon: 'bi bi-check-lg',
+                btnText: 'Ya, Setujui'
+            },
+            reject: {
+                iconClass: 'bi bi-x-octagon-fill',
+                iconBg: 'rgba(220, 53, 69, 0.12)',
+                iconColor: '#dc3545',
+                title: 'Tolak Peminjaman?',
+                desc: 'Pengajuan peminjaman ini akan ditolak dan peminjam akan melihat statusnya berubah menjadi "Rejected".',
+                btnClass: 'btn-danger',
+                btnIcon: 'bi bi-x-lg',
+                btnText: 'Ya, Tolak'
+            },
+            borrow: {
+                iconClass: 'bi bi-box-arrow-up-right',
+                iconBg: 'rgba(13, 60, 120, 0.10)',
+                iconColor: '#0d3c78',
+                title: 'Tandai Sudah Diambil?',
+                desc: 'Status akan berubah menjadi "Borrowed". Pastikan aset sudah diserahkan secara fisik kepada peminjam.',
+                btnClass: 'btn-primary',
+                btnIcon: 'bi bi-box-arrow-up-right',
+                btnText: 'Ya, Tandai'
+            },
+            return_loan: {
+                iconClass: 'bi bi-arrow-return-left',
+                iconBg: 'rgba(25, 135, 84, 0.12)',
+                iconColor: '#198754',
+                title: 'Tandai Sudah Dikembalikan?',
+                desc: 'Stok aset akan dipulihkan kembali sesuai jumlah yang dipinjam. Pastikan seluruh barang telah diterima dengan lengkap.',
+                btnClass: 'btn-success',
+                btnIcon: 'bi bi-check2-all',
+                btnText: 'Ya, Kembalikan'
+            }
+        };
+
+        let pendingActionUrl = null;
+
+        function showConfirmModal(actionType, url) {
+            const cfg = actionConfigs[actionType];
+            if (!cfg) return;
+
+            pendingActionUrl = url;
+
+            // Populate modal
+            $('#confirm-icon-wrap').css({ background: cfg.iconBg });
+            $('#confirm-icon').attr('class', 'fs-2 ' + cfg.iconClass).css({ color: cfg.iconColor });
+            $('#confirm-title').text(cfg.title);
+            $('#confirm-desc').text(cfg.desc);
+            $('#confirm-action-btn').attr('class', 'btn rounded-3 px-4 ' + cfg.btnClass);
+            $('#confirm-btn-icon').attr('class', 'me-1 ' + cfg.btnIcon);
+            $('#confirm-btn-text').text(cfg.btnText);
+
+            const modal = new bootstrap.Modal(document.getElementById('confirmActionModal'));
+            modal.show();
+        }
+
+        // When user clicks confirm
+        $('#confirm-action-btn').on('click', function() {
+            if (!pendingActionUrl) return;
+
+            const btn = $(this);
+            const originalHTML = btn.html();
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span>Memproses...');
+
+            // Close modal first
+            bootstrap.Modal.getInstance(document.getElementById('confirmActionModal')).hide();
+
             $.ajax({
-                url: url,
+                url: pendingActionUrl,
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -273,47 +407,37 @@
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        // Reload Table
                         table.ajax.reload(null, false);
-                        
-                        // Show success alert dynamically
-                        alert(response.message);
+                        showToast(response.message, true);
                     } else {
-                        alert(response.message);
+                        showToast(response.message, false);
                     }
                 },
                 error: function() {
-                    alert('Gagal memproses aksi. Hubungi developer.');
+                    showToast('Gagal memproses aksi. Hubungi developer.', false);
+                },
+                complete: function() {
+                    btn.prop('disabled', false).html(originalHTML);
+                    pendingActionUrl = null;
                 }
             });
-        }
+        });
 
+        // 4. Bind Action Buttons
         $('#loansTable').on('click', '.btn-approve', function() {
-            const id = $(this).data('id');
-            if (confirm('Apakah Anda yakin ingin menyetujui peminjaman ini? Tindakan ini akan memesan (mengurangi) stok tersedia.')) {
-                processAction('<?= base_url('admin/loans/approve') ?>/' + id);
-            }
+            showConfirmModal('approve', '<?= base_url('admin/loans/approve') ?>/' + $(this).data('id'));
         });
 
         $('#loansTable').on('click', '.btn-reject', function() {
-            const id = $(this).data('id');
-            if (confirm('Apakah Anda yakin ingin menolak peminjaman ini?')) {
-                processAction('<?= base_url('admin/loans/reject') ?>/' + id);
-            }
+            showConfirmModal('reject', '<?= base_url('admin/loans/reject') ?>/' + $(this).data('id'));
         });
 
         $('#loansTable').on('click', '.btn-borrow', function() {
-            const id = $(this).data('id');
-            if (confirm('Tandai aset telah diambil oleh peminjam? Status akan berubah menjadi Borrowed.')) {
-                processAction('<?= base_url('admin/loans/borrow') ?>/' + id);
-            }
+            showConfirmModal('borrow', '<?= base_url('admin/loans/borrow') ?>/' + $(this).data('id'));
         });
 
         $('#loansTable').on('click', '.btn-return', function() {
-            const id = $(this).data('id');
-            if (confirm('Tandai aset telah dikembalikan dengan lengkap? Tindakan ini akan mengembalikan stok tersedia.')) {
-                processAction('<?= base_url('admin/loans/return') ?>/' + id);
-            }
+            showConfirmModal('return_loan', '<?= base_url('admin/loans/return') ?>/' + $(this).data('id'));
         });
     });
 </script>
