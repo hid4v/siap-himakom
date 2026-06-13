@@ -28,6 +28,7 @@
 
   <!-- Custom Landing CSS -->
   <link href="<?= base_url('css/landing.css') ?>" rel="stylesheet">
+
 </head>
 
 <body class="index-page">
@@ -139,56 +140,71 @@
           <p>Daftar Aset Yang Tersedia</p>
         </div>
 
-        <div class="row gy-4">
-          <?php if (empty($assets)): ?>
-            <div class="col-12 text-center text-muted py-5">
-              <i class="bi bi-box-fill fs-1 d-block mb-3"></i>
-              Belum ada data aset yang tersedia saat ini.
-            </div>
-          <?php else: ?>
-            <?php foreach ($assets as $asset): ?>
-              <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="asset-card">
-                  <div class="asset-img-container">
-                    <span class="category-badge"><?= esc($asset['category_name']) ?></span>
-                    <?php
-                      $cond = strtolower(trim($asset['condition']));
-                      $badgeBg = 'bg-secondary text-white';
-                      if ($cond === 'sangat baik') {
-                          $badgeBg = 'bg-success text-white';
-                      } elseif ($cond === 'baik') {
-                          $badgeBg = 'bg-warning text-dark';
-                      } elseif (strpos($cond, 'buruk') !== false || strpos($cond, 'rusak') !== false) {
-                          $badgeBg = 'bg-danger text-white';
-                      }
-                    ?>
-                    <span class="condition-badge <?= $badgeBg ?>"><?= esc($asset['condition']) ?></span>
-                    
-                    <?php if ($asset['image']): ?>
-                      <img src="<?= base_url('uploads/assets/' . $asset['image']) ?>" alt="<?= esc($asset['name']) ?>">
-                    <?php else: ?>
-                      <img src="<?= base_url('HIMAKOM Logo.png') ?>" alt="HIMAKOM Logo" style="opacity: 0.5;">
-                    <?php endif; ?>
-                  </div>
-                  
-                  <div class="asset-body">
-                    <h5 class="asset-title"><?= esc($asset['name']) ?></h5>
-                    <p class="asset-desc"><?= esc($asset['description'] ?: 'Tidak ada deskripsi.') ?></p>
-                    
-                    <div class="asset-meta">
-                      <div class="stock-info">
-                        Ready: <span class="stock-number"><?= $asset['available_stock'] ?></span> / <?= $asset['stock'] ?> unit
+        <?php if (empty($assets)): ?>
+          <div class="text-center text-muted py-5">
+            <i class="bi bi-box-fill fs-1 d-block mb-3"></i>
+            Belum ada data aset yang tersedia saat ini.
+          </div>
+        <?php else: ?>
+
+          <!-- Swiper Carousel -->
+          <div class="catalog-swiper-wrap" data-aos="fade-up">
+            <!-- Prev / Next buttons -->
+            <button class="catalog-swiper-btn prev" id="catalogPrev" aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="catalog-swiper-btn next" id="catalogNext" aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+
+            <div class="swiper catalog-swiper" id="catalogSwiper">
+              <div class="swiper-wrapper">
+                <?php foreach ($assets as $asset): ?>
+                  <?php
+                    $cond = strtolower(trim($asset['condition']));
+                    $badgeBg = 'bg-secondary text-white';
+                    if ($cond === 'sangat baik') {
+                        $badgeBg = 'bg-success text-white';
+                    } elseif ($cond === 'baik') {
+                        $badgeBg = 'bg-warning text-dark';
+                    } elseif (strpos($cond, 'buruk') !== false || strpos($cond, 'rusak') !== false) {
+                        $badgeBg = 'bg-danger text-white';
+                    }
+                  ?>
+                  <div class="swiper-slide">
+                    <div class="asset-card">
+                      <div class="asset-img-container">
+                        <span class="category-badge"><?= esc($asset['category_name']) ?></span>
+                        <span class="condition-badge <?= $badgeBg ?>"><?= esc($asset['condition']) ?></span>
+                        <?php if ($asset['image']): ?>
+                          <img src="<?= base_url('uploads/assets/' . $asset['image']) ?>" alt="<?= esc($asset['name']) ?>">
+                        <?php else: ?>
+                          <img src="<?= base_url('HIMAKOM Logo.png') ?>" alt="HIMAKOM Logo" style="opacity: 0.5;">
+                        <?php endif; ?>
                       </div>
-                      <button class="btn-detail view-asset-detail" data-id="<?= $asset['id'] ?>">
-                        <i class="bi bi-info-circle me-1"></i> Detail
-                      </button>
+                      <div class="asset-body">
+                        <h5 class="asset-title"><?= esc($asset['name']) ?></h5>
+                        <p class="asset-desc"><?= esc($asset['description'] ?: 'Tidak ada deskripsi.') ?></p>
+                        <div class="asset-meta">
+                          <div class="stock-info">
+                            Ready: <span class="stock-number"><?= $asset['available_stock'] ?></span> / <?= $asset['stock'] ?> unit
+                          </div>
+                          <button class="btn-detail view-asset-detail" data-id="<?= $asset['id'] ?>">
+                            <i class="bi bi-info-circle me-1"></i> Detail
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                <?php endforeach; ?>
               </div>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </div>
+            </div>
+
+            <!-- Pagination dots -->
+            <div class="catalog-swiper-pagination" id="catalogPagination"></div>
+          </div>
+
+        <?php endif; ?>
 
       </div>
     </section>
@@ -376,6 +392,35 @@
 
   <!-- Main JS File -->
   <script src="<?= base_url('assets/FlexStart/assets/js/main.js') ?>"></script>
+
+  <script>
+    // ── Catalog Swiper carousel ──────────────────────────
+    (function () {
+      var catalogSwiper = new Swiper('#catalogSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: {
+          delay: 3500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        pagination: {
+          el: '#catalogPagination',
+          clickable: true,
+        },
+        navigation: {
+          prevEl: '#catalogPrev',
+          nextEl: '#catalogNext',
+        },
+        breakpoints: {
+          576:  { slidesPerView: 1 },
+          768:  { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        },
+      });
+    })();
+  </script>
 
   <script>
     $(document).ready(function() {
