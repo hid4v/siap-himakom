@@ -3,58 +3,7 @@
 <?= $this->section('title') ?>Dashboard Member<?= $this->endSection() ?>
 
 <?= $this->section('styles') ?>
-<style>
-    .small-box {
-        position: relative;
-        display: block;
-        border-radius: 8px;
-        overflow: hidden;
-        color: #fff;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border: none;
-    }
-    .small-box:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-    }
-    .small-box .inner {
-        padding: 24px;
-        position: relative;
-        z-index: 2;
-    }
-    .small-box .inner h3 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin: 0 0 4px 0;
-        white-space: nowrap;
-    }
-    .small-box .inner p {
-        font-size: 0.85rem;
-        margin-bottom: 0;
-        opacity: 0.9;
-        text-transform: uppercase;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-    }
-    .small-box .icon {
-        position: absolute;
-        top: 12px;
-        right: 16px;
-        z-index: 1;
-        font-size: 4rem;
-        color: rgba(255, 255, 255, 0.15);
-        transition: transform 0.3s ease;
-        line-height: 1;
-    }
-    .small-box:hover .icon {
-        transform: scale(1.1);
-    }
-    .bg-box-navy { background-color: #0d3c78; }
-    .bg-box-amber { background-color: #c0841c; }
-    .bg-box-blue { background-color: #2563eb; }
-    .bg-box-teal { background-color: #1a6f5c; }
-</style>
+<link href="<?= base_url('css/member_dashboard.css') ?>" rel="stylesheet">
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>

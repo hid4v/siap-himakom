@@ -3,33 +3,7 @@
 <?= $this->section('title') ?>Katalog & Pinjam Aset<?= $this->endSection() ?>
 
 <?= $this->section('styles') ?>
-<style>
-    .asset-thumbnail-container {
-        height: 140px;
-        background-color: #f8f9fa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .asset-thumbnail-container img {
-        max-height: 85%;
-        max-width: 85%;
-        object-fit: contain;
-    }
-
-    .cart-card {
-        position: sticky;
-        top: 20px;
-        border: 2px dashed rgba(12, 37, 64, 0.15);
-    }
-
-    .btn-qty-minus, .btn-qty-plus {
-        padding: 2px 8px;
-    }
-</style>
+<link href="<?= base_url('css/catalog.css') ?>" rel="stylesheet">
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>

@@ -6,7 +6,7 @@
     <title>Registrasi Member - SIAP-HIMAKOM</title>
     
     <!-- Favicon -->
-    <link href="<?= base_url('favicon.ico') ?>" rel="icon">
+    <link href="<?= base_url('HIMAKOM Logo.png') ?>" rel="icon" type="image/png">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,120 +16,8 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-color: #0d3c78;
-            --accent-color: #567c9c;
-            --bg-color: #f0f2f5;
-            --text-dark: #2d3748;
-            --text-muted: #595959;
-        }
-
-        body, h1, h2, h3, h4, h5, h6, p, span, a, label, input, button, .form-control {
-            font-family: 'Montserrat', sans-serif !important;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .register-container {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .auth-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            color: var(--text-dark);
-        }
-
-        .brand-logo {
-            width: 80px;
-            height: auto;
-            margin-bottom: 15px;
-        }
-
-        .form-control {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            color: var(--text-dark);
-            padding: 10px 16px;
-            transition: all 0.2s ease;
-        }
-
-        .form-control:focus {
-            background: #ffffff;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(13, 60, 120, 0.15);
-            color: var(--text-dark);
-        }
-
-        .form-label {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .input-group-text {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px 0 0 8px;
-            color: var(--text-muted);
-        }
-
-        .input-group .form-control {
-            border-radius: 0 8px 8px 0;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-weight: 600;
-            color: #ffffff;
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #0b3162;
-            color: #ffffff;
-        }
-
-        .btn-primary:active {
-            transform: translateY(1px);
-        }
-
-        .back-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s ease;
-            font-size: 0.9rem;
-        }
-
-        .back-link:hover {
-            color: var(--primary-color);
-        }
-
-        .alert-custom {
-            background: #fff5f5;
-            border: 1px solid #fed7d7;
-            color: #c53030;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-    </style>
+    <!-- Custom Auth CSS -->
+    <link href="<?= base_url('css/auth.css') ?>" rel="stylesheet">
 </head>
 <body>
 

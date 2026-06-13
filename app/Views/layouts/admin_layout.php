@@ -6,7 +6,7 @@
     <title><?= $this->renderSection('title') ?> - SIAP-HIMAKOM</title>
     
     <!-- Favicon -->
-    <link href="<?= base_url('favicon.ico') ?>" rel="icon">
+    <link href="<?= base_url('HIMAKOM Logo.png') ?>" rel="icon" type="image/png">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,119 +23,9 @@
     <!-- jQuery DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
     
-    <style>
-        :root {
-            --primary-dark: #0d3c78;
-            --accent-gold: #567c9c;
-            --light-bg: #f0f2f5;
-        }
-
-        body, h1, h2, h3, h4, h5, h6, p, span, a, label, input, button, select, textarea, .brand-text, .nav-link, .card-title, .table, .btn {
-            font-family: 'Montserrat', sans-serif !important;
-        }
-
-        .sidebar-brand, .brand-link {
-            background-color: var(--primary-dark) !important;
-            border: none !important;
-            border-bottom: none !important;
-            box-shadow: none !important;
-            text-decoration: none !important;
-        }
-
-        .app-sidebar {
-            background-color: var(--primary-dark) !important;
-        }
-
-        .sidebar-menu .nav-link.active {
-            background-color: var(--accent-gold) !important;
-            color: #ffffff !important;
-            font-weight: 600;
-        }
-
-        .sidebar-menu .nav-link:hover:not(.active) {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .user-panel {
-            border-bottom: none !important;
-        }
-
-        .btn-gold {
-            background-color: var(--accent-gold);
-            color: #ffffff;
-            font-weight: 600;
-            border: none;
-        }
-
-        .btn-gold:hover {
-            background-color: #446582;
-            color: #ffffff;
-        }
-
-        .text-gold {
-            color: var(--accent-gold) !important;
-        }
-
-        /* ============================================
-           Sidebar Toggle – Overlay mode on all sizes
-           ============================================ */
-        /* When collapsed, sidebar slides off-screen completely (not mini-icon mode) */
-        .app-sidebar {
-            transition: margin-left 0.3s ease, transform 0.3s ease;
-        }
-
-        /* Ensure sidebar text is always visible when expanded */
-        .sidebar-menu .nav-link p {
-            display: inline !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-
-        /* ============================================
-           8px Grid Spacing System
-           ============================================ */
-        .app-main {
-            padding: 32px 0 !important; /* 4 × 8px */
-        }
-        .app-main > .container-fluid {
-            padding-left: 24px !important;  /* 3 × 8px */
-            padding-right: 24px !important;
-        }
-        .app-footer {
-            padding: 16px 0 !important; /* 2 × 8px */
-        }
-
-        /* Content cards consistent spacing */
-        .card-body { padding: 24px !important; }
-        .card-header { padding: 16px 24px !important; }
-        .card-footer { padding: 16px 24px !important; }
-
-        /* Table cells */
-        .table > :not(caption) > * > * {
-            padding: 12px 16px;
-        }
-
-        /* Modal body spacing */
-        .modal-body { padding: 24px !important; }
-        .modal-footer { padding: 12px 24px !important; }
-
-        /* Form controls */
-        .form-control {
-            padding: 8px 12px;
-        }
-        .form-select {
-            padding: 8px 36px 8px 12px;
-        }
-
-        /* Badge inline padding */
-        .badge { padding: 4px 8px; }
-
-        /* Flashdata alert spacing */
-        .alert { 
-            padding: 12px 16px; 
-            margin-bottom: 24px; 
-        }
-    </style>
+    <!-- Custom Admin Layout CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/admin_layout.css') ?>" />
+    
     <?= $this->renderSection('styles') ?>
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
