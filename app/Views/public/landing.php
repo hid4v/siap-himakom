@@ -70,12 +70,7 @@
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
             <h1>Sistem Informasi Aset & Peminjaman HIMAKOM</h1>
             <p>Platform digital terpusat untuk memantau ketersediaan, mendokumentasikan, dan mengajukan peminjaman aset operasional HIMAKOM FMIPA ULM secara cepat dan akurat.</p>
-            <div class="d-flex flex-column flex-md-row mt-3">
-              <a href="#catalog" class="btn-get-started d-flex align-items-center justify-content-center">Lihat Aset <i class="bi bi-arrow-right ms-2"></i></a>
-              <?php if (!session()->get('isLoggedIn')): ?>
-                <a href="<?= base_url('register') ?>" class="btn-register-hero d-flex align-items-center justify-content-center">Registrasi Member</a>
-              <?php endif; ?>
-            </div>
+
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img text-center" data-aos="zoom-out" data-aos-delay="100">
             <img src="<?= base_url('HIMAKOM Logo.png') ?>" class="img-fluid animated" alt="HIMAKOM Logo" style="max-height: 350px;">
