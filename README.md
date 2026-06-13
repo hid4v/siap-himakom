@@ -1,69 +1,123 @@
-# CodeIgniter 4 Application Starter
+# SIAP-HIMAKOM
 
-## What is CodeIgniter?
+**Sistem Informasi Aset dan Peminjaman Himpunan Mahasiswa Ilmu Komputer (HIMAKOM) FMIPA Universitas Lambung Mangkurat.**
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+SIAP-HIMAKOM adalah platform web berbasis digital terpusat yang dirancang untuk memantau ketersediaan, mendokumentasikan, dan memproses pengajuan peminjaman aset operasional milik HIMAKOM FMIPA ULM secara cepat, akurat, dan transparan.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+---
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 🚀 Fitur Utama
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+1. **Beranda Publik & Katalog Aset**: Halaman landing interaktif (menggunakan tema FlexStart) yang menampilkan profil organisasi HIMAKOM, Visi & Misi Program Studi Ilmu Komputer ULM, FAQ, Kontak, serta katalog produk yang menampilkan stok tersedia dan kondisi fisik barang secara *real-time*.
+2. **Role-Based Access Control (RBAC)**:
+   * **Admin**: Mengelola kategori aset, unit barang, registrasi pengguna, verifikasi peminjaman (menyetujui, menolak, mencatat peminjaman, dan pengembalian), serta memantau statistik dashboard.
+   * **Member**: Melihat detail katalog aset, memasukkan barang ke keranjang peminjaman, mengisi form tujuan & tanggal sewa, mengajukan peminjaman, serta melacak riwayat transaksi peminjaman mereka.
+3. **Dashboard Analitik (Admin)**: Visualisasi tren peminjaman bulanan (Line Chart) dan proporsi aset per kategori (Doughnut Chart) menggunakan **Chart.js**.
+4. **DataTables Server-Side**: Pencarian, pengurutan, dan paginasi data secara instan menggunakan AJAX server-side processing pada halaman manajemen pengguna, kategori, aset, dan peminjaman.
+5. **Modern UI UX Elements**:
+   * Custom **Bootstrap Modal** interaktif untuk konfirmasi aksi (setujui/tolak/kembalikan peminjaman), menggantikan dialog `confirm()` bawaan browser.
+   * **Toast Notification** otomatis dengan warna responsif (sukses/error) di pojok kanan atas untuk memberikan feedback instan kepada pengguna.
+   * Konsistensi tipografi menggunakan font **Montserrat** dan ikon vektor **Bootstrap Icons**.
 
-## Installation & updates
+---
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## 🛠️ Teknologi yang Digunakan
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+* **Backend**: PHP 8.2+ dengan framework **CodeIgniter 4.7**
+* **Database**: **MySQL**
+* **Frontend**:
+  * **Bootstrap 5** (Layout UI)
+  * **AdminLTE v4** (Layout Dashboard)
+  * **FlexStart** (Layout Landing Page)
+  * **jQuery** & **jQuery DataTables** (AJAX Tables)
+  * **Chart.js** (Visualisasi Statistik)
 
-## Setup
+---
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+## ⚙️ Petunjuk Instalasi & Setup Lokal
 
-## Important Change with index.php
+### Prerequisites
+Pastikan komputer Anda sudah terpasang:
+* Web Server (seperti XAMPP, Laragon, atau Ampps)
+* PHP versi **8.2 atau lebih tinggi** (dengan ekstensi `intl` dan `mbstring` diaktifkan di `php.ini`)
+* Composer
+* Git
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+### Langkah-langkah Setup
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/hid4v/siap-himakom.git
+   cd siap-himakom
+   ```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+2. **Install Dependensi**
+   Gunakan Composer untuk memasang dependensi project:
+   ```bash
+   composer install
+   ```
 
-## Repository Management
+3. **Konfigurasi Environment (`.env`)**
+   * Salin file default env ke `.env`:
+     ```bash
+     cp env .env
+     ```
+   * Buka file `.env` dan sesuaikan pengaturan berikut:
+     ```env
+     # Atur mode aplikasi ke development untuk menampilkan debugging log
+     CI_ENVIRONMENT = development
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+     # Sesuaikan Base URL local Anda
+     app.baseURL = 'http://localhost:8080/'
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+     # Konfigurasi koneksi Database MySQL Anda
+     database.default.hostname = localhost
+     database.default.database = siap_himakom
+     database.default.username = root
+     database.default.password = 
+     database.default.DBDriver = MySQLi
+     database.default.port = 3306
+     ```
 
-## Server Requirements
+4. **Jalankan Migrasi Database**
+   Buat seluruh tabel database yang diperlukan dengan command spark:
+   ```bash
+   php spark migrate
+   ```
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+5. **Jalankan Seeding Data Awal**
+   Isi database dengan data kategori, aset, dan akun percobaan bawaan menggunakan command seeder:
+   ```bash
+   php spark db:seed AppSeeder
+   ```
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+6. **Jalankan Aplikasi**
+   Jalankan local server internal CodeIgniter:
+   ```bash
+   php spark serve
+   ```
+   Buka browser Anda dan akses halaman di: **`http://localhost:8080`**
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+---
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+## 🔑 Akun Demo Percobaan
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Setelah menjalankan data seeding, Anda dapat login menggunakan akun berikut:
+
+* **Akun Admin**
+  * Email: `admin@himakom.org`
+  * Password: `admin123`
+* **Akun Member**
+  * Email: `member@himakom.org`
+  * Password: `member123`
+
+---
+
+## 📂 Struktur Direktori Utama
+
+* `app/Controllers/` - Logika pemrosesan request & routing
+* `app/Database/` - File migrasi skema tabel dan data seeder
+* `app/Models/` - Interaksi kueri tabel ke database MySQL
+* `app/Views/` - Template antarmuka pengguna (Layouts, Public, Admin, Auth, Member)
+* `public/css/` - File custom stylesheet eksternal yang dipecah dari internal views
+* `public/uploads/assets/` - Folder penyimpanan berkas foto aset barang yang diunggah

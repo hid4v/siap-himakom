@@ -66,6 +66,9 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
+                        <button class="btn btn-outline-secondary border-start-0 border toggle-password" type="button" data-target="#password" tabindex="-1">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -87,5 +90,23 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const input = document.querySelector(this.getAttribute('data-target'));
+                const icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('bi-eye');
+                    icon.classList.add('bi-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('bi-eye-slash');
+                    icon.classList.add('bi-eye');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

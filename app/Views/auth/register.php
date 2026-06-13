@@ -73,21 +73,25 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Minimal 6 karakter" required>
-                        </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Minimal 6 karakter" required>
+                        <button class="btn btn-outline-secondary border-start-0 border toggle-password" type="button" data-target="#password" tabindex="-1">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
-                    
-                    <div class="col-md-6 mb-3">
-                        <label for="password_confirm" class="form-label">Konfirmasi Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
-                            <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Ulangi password" required>
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password_confirm" class="form-label">Konfirmasi Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                        <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Ulangi password" required>
+                        <button class="btn btn-outline-secondary border-start-0 border toggle-password" type="button" data-target="#password_confirm" tabindex="-1">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -109,5 +113,23 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const input = document.querySelector(this.getAttribute('data-target'));
+                const icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('bi-eye');
+                    icon.classList.add('bi-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('bi-eye-slash');
+                    icon.classList.add('bi-eye');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

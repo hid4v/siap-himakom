@@ -84,7 +84,30 @@ body {
 }
 
 .input-group .form-control {
+    border-radius: 0;
+}
+
+.input-group .form-control:last-child {
     border-radius: 0 8px 8px 0;
+}
+
+/* Toggle password eye button */
+.toggle-password {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+    padding: 10px 14px;
+    transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+    background: #eef1f5;
+}
+
+.toggle-password:focus {
+    box-shadow: none;
 }
 
 .btn-primary {
